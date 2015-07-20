@@ -21,10 +21,14 @@ end
 
 class UsersController < ActionController::Base
   def create
-    User.create!(params[:user])
+    User.create!(user_params)
     # Send an email to the newly created user's confirmed
     # email address, using the UserMailer class.
     render text: "You're signed up!"
   end
-end
 
+  private
+  def user_params
+    params.require(:user).permit(:email, :name, :username)
+  end
+end

@@ -4,7 +4,12 @@ end
 
 class UsersController < ActionController::Base
   def create
-    User.create!(params[:user])
+    User.create!(user_params)
     render text: "You're signed up!"
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:email, :name, :username)
   end
 end
